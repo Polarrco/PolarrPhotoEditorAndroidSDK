@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="co.polarr.polarrrenderdemo.MainActivity">
+
+    <ImageView
+        android:id="@+id/demo_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/bottom_con"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbarAlwaysDrawHorizontalTrack="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <Button
+                    android:id="@+id/btn_filters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="btnClicked"
+                    android:text="Filters"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_eraser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="btnClicked"
+                    android:text="Magic Eraser"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_paint_brush"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="btnClicked"
+                    android:text="Paint Demo"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:visibility="gone"
+                    android:id="@+id/btn_mosaic_brush"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="btnClicked"
+                    android:text="Mosaic brush"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_auto_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="btnClicked"
+                    android:text="All Enhance"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_addjustment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="btnClicked"
+                    android:text="Adjusts"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_auto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="btnClicked"
+                    android:text="Auto Enhance"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_auto_face"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="btnClicked"
+                    android:text="Enhance Face_0"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_add_radial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="btnClicked"
+                    android:text="Radial mask"
+                    android:textSize="8sp" />
+
+                <Button
+                    android:id="@+id/btn_add_gradient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:onClick="btnClicked"
+                    android:text="Gradient mask"
+                    android:textSize="8sp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/label_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.AppCompatSeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/render_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_con">
+        <co.polarr.polarrrenderdemo.DemoView
+            android:id="@+id/render_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="60dp"
+        android:onClick="btnClicked"
+        android:text="@string/demo_desc"
+        android:textSize="20sp" />
+</RelativeLayout>

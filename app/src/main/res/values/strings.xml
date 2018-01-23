@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Polarr Render Demo</string>
+    <string name="title_qr">QR Scan</string>
+    <string name="demo_desc">Welcome using Polarr render SDK. Click menu button to start. Or click here import a demo photo.</string>
+</resources>
