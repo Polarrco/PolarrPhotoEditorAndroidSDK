@@ -20,6 +20,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import co.polarr.renderer.PolarrRender;
 import co.polarr.renderer.entities.BrushItem;
+import co.polarr.renderer.entities.FaceItem;
 import co.polarr.renderer.entities.MagicEraserHistoryItem;
 import co.polarr.renderer.entities.MagicEraserPath;
 import co.polarr.renderer.filters.Basic;
@@ -441,6 +442,10 @@ public class DemoView extends GLSurfaceView {
                 BenchmarkUtil.TimeStart("autoEnhanceAll");
                 Map<String, Object> changedStates = polarrRender.autoEnhanceGlobal(percent);
                 polarrRender.autoEnhanceFace(faceStates, -1, percent, true);
+
+                // to remove lips saturation
+//                removeLipsSaturation(faceStates, 0);
+
                 faceStates.putAll(changedStates);
                 polarrRender.updateStates(faceStates);
 
@@ -460,6 +465,30 @@ public class DemoView extends GLSurfaceView {
         }
 
         queueEvent(autoEnhanceRunable);
+    }
+
+    private void removeLipsSaturation(Map<String, Object> faceStates, int faceIndex) {
+        List<FaceItem> faces = (List<FaceItem>) faceStates.get("faces");
+        if(faces != null) {
+            if (faces != null && !faces.isEmpty()) {
+                if (faces.size() > faceIndex) {
+                    FaceItem faceAdjustment = faces.get(faceIndex);
+                    faceAdjustment.adjustments.lips_saturation = 0;
+                }
+            }
+        }
+    }
+
+    private void removeFaceSmoothness(Map<String, Object> faceStates, int faceIndex) {
+        List<FaceItem> faces = (List<FaceItem>) faceStates.get("faces");
+        if(faces != null) {
+            if (faces != null && !faces.isEmpty()) {
+                if (faces.size() > faceIndex) {
+                    FaceItem faceAdjustment = faces.get(faceIndex);
+                    faceAdjustment.adjustments.skin_smoothness = 0;
+                }
+            }
+        }
     }
 
     private void lazyUpdate(final Runnable autoEnhanceRunable) {
