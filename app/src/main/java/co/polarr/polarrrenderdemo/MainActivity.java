@@ -887,7 +887,7 @@ public class MainActivity extends AppCompatActivity {
                 localStateMap.clear();
                 localStateMap.putAll(faceStates);
 
-                renderView.updateStates(mCurrentFilter.state);
+                renderView.updateStates(FilterPackageUtil.GetFilterStates(mCurrentFilter, 0.5f));
 
                 final String label = "Filter:" + filterItem.filterName("zh");
                 labelTv.setText(label);
@@ -897,7 +897,7 @@ public class MainActivity extends AppCompatActivity {
                         float adjustmentValue = (float) progress / 100f;
 
                         if (mCurrentFilter != null) {
-                            Map<String, Object> interpolateStates = FilterPackageUtil.GetRefStates(mCurrentFilter.state, adjustmentValue);
+                            Map<String, Object> interpolateStates = FilterPackageUtil.GetFilterStates(mCurrentFilter, adjustmentValue);
 
                             localStateMap.clear();
                             localStateMap.putAll(faceStates);

@@ -651,7 +651,7 @@ renderView.updateStates(filterItem.state);
 返回滤镜的参考调整范围。程度为50%时表示滤镜的原始数值，增加表示增强各个参数的程度，减少表示减弱各个参数的程度。
 ```java
 float adjustmentValue = 0.5f; // 滤镜程度 (0f, 1f)
-Map<String, Object> interpolateStates = FilterPackageUtil.GetRefStates(filterItem.state, adjustmentValue);
+Map<String, Object> interpolateStates = FilterPackageUtil.GetFilterStates(filterItem, adjustmentValue);
 ```
 ### 内置滤镜说明
 通用系列
@@ -661,7 +661,7 @@ FilterPackageUtil.F_COMMON_2 // 秋天童话
 FilterPackageUtil.F_COMMON_3 // 青柠奶泡
 FilterPackageUtil.F_COMMON_4 // 海盐泡芙
 FilterPackageUtil.F_COMMON_5 // 黑咖啡
-FilterPackageUtil.F_COMMON_6 // 蓝莓
+FilterPackageUtil.F_COMMON_6 // 奇幻城堡
 ```
 前置系列
 ```java

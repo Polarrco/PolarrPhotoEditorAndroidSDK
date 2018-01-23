@@ -614,7 +614,7 @@ renderView.updateStates(filterItem.state);
 the best value is 0.5. Above 0.5 means enhance effects, below means reduce effects.
 ```java
 float adjustmentValue = 0.5f; // (0f, 1f)
-Map<String, Object> interpolateStates = FilterPackageUtil.GetRefStates(filterItem.state, adjustmentValue);
+Map<String, Object> interpolateStates = FilterPackageUtil.GetFilterStates(filterItem, adjustmentValue);
 ```
 ## QR code
 ### QR code request from a url
