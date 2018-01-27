@@ -408,14 +408,21 @@ polarrRender.brushPaintFinish();
 获取当前的绘制结果。可用于保存为历史记录。
 ```java
 // call in GL thread
-int paintTexture = polarrRender.getBrushLastPaint();
+int paintTexture = polarrRender.setBrushLastPaintingTex();
 ```
 ### 设置绘制层Texture
 将一个绘制结果设置为笔刷绘制层。可用于重做历史记录。
 ```java
 // call in GL thread
 int paintTexture;
-polarrRender.setBrushLastPaintTex(paintTexture);
+polarrRender.setBrushLastPaintingTex(paintTexture);
+```
+### 合并绘制层Texture
+```java
+// call in GL thread
+int paintTexture;
+int outTexture;
+polarrRender.combine(paintTexture, outTexture);
 ```
 ## 消除笔
 ### 初始化消除笔

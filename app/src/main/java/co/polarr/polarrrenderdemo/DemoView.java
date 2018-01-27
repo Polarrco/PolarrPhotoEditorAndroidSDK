@@ -176,7 +176,8 @@ public class DemoView extends GLSurfaceView {
                     if (currentRenderTexture != 0) {
                         filter.setInputTextureId(currentRenderTexture);
                     } else {
-                        filter.setInputTextureId(polarrRender.getBrushLastPaint());
+                        polarrRender.combine(polarrRender.getBrushLastPaint(), outputTexture);
+                        filter.setInputTextureId(outputTexture);
                     }
                 } else {
                     filter.setInputTextureId(outputTexture);
@@ -241,7 +242,7 @@ public class DemoView extends GLSurfaceView {
         queueEvent(new Runnable() {
             @Override
             public void run() {
-                polarrRender.setBrushLastPaintTex(brushTextureId);
+                polarrRender.setBrushLastPaintingTex(brushTextureId);
             }
         });
     }
@@ -362,16 +363,27 @@ public class DemoView extends GLSurfaceView {
     }
 
     public void updateStates(final Map<String, Object> statesMap) {
-        queueEvent(new Runnable() {
+        Runnable updateStatesRunable = new Runnable() {
             @Override
             public void run() {
                 BenchmarkUtil.TimeStart("updateStates");
+                isProcessing = true;
                 polarrRender.updateStates(statesMap);
-                BenchmarkUtil.TimeEnd("updateStates");
-            }
-        });
+                GLES20.glFinish();
 
-        requestRender();
+                requestRender();
+
+                isProcessing = false;
+            }
+        };
+
+        if (isProcessing) {
+            lazyUpdate(updateStatesRunable);
+
+            return;
+        }
+
+        queueEvent(updateStatesRunable);
     }
 
     public void autoEnhance(final Map<String, Object> statesMapToUpdate, final float percent) {
@@ -469,7 +481,7 @@ public class DemoView extends GLSurfaceView {
 
     private void removeLipsSaturation(Map<String, Object> faceStates, int faceIndex) {
         List<FaceItem> faces = (List<FaceItem>) faceStates.get("faces");
-        if(faces != null) {
+        if (faces != null) {
             if (faces != null && !faces.isEmpty()) {
                 if (faces.size() > faceIndex) {
                     FaceItem faceAdjustment = faces.get(faceIndex);
@@ -481,7 +493,7 @@ public class DemoView extends GLSurfaceView {
 
     private void removeFaceSmoothness(Map<String, Object> faceStates, int faceIndex) {
         List<FaceItem> faces = (List<FaceItem>) faceStates.get("faces");
-        if(faces != null) {
+        if (faces != null) {
             if (faces != null && !faces.isEmpty()) {
                 if (faces.size() > faceIndex) {
                     FaceItem faceAdjustment = faces.get(faceIndex);

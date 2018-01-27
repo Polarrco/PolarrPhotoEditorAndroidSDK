@@ -382,13 +382,20 @@ polarrRender.brushPaintFinish();
 ### Get the paint layer as a texture
 ```java
 // call in GL thread
-int paintTexture = polarrRender.getBrushLastPaint();
+int paintTexture = polarrRender.setBrushLastPaintingTex();
 ```
 ### Set a specific texture to the paint layer
 ```java
 // call in GL thread
 int paintTexture;
-polarrRender.setBrushLastPaintTex(paintTexture);
+polarrRender.setBrushLastPaintingTex(paintTexture);
+```
+### Combine the paint texture and the original texture
+```java
+// call in GL thread
+int paintTexture;
+int outTexture;
+polarrRender.combine(paintTexture, outTexture);
 ```
 ## Magic eraser
 ### Init magic eraser

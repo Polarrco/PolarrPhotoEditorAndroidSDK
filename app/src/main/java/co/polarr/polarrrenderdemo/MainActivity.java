@@ -591,7 +591,7 @@ public class MainActivity extends AppCompatActivity {
                         new Thread() {
                             @Override
                             public void run() {
-                                float perfectSize = 500f;
+                                float perfectSize = 2000f;
                                 float minScale = Math.min(perfectSize / imageBm.getWidth(), perfectSize / imageBm.getHeight());
                                 minScale = Math.min(minScale, 1f);
                                 Bitmap scaledBitmap = Bitmap.createScaledBitmap(imageBm, (int) (minScale * imageBm.getWidth()), (int) (minScale * imageBm.getHeight()), true);
