@@ -153,6 +153,14 @@ List<Bitmap> bitmapList = PolarrRender.renderBitmaps(getResources(), inputImage,
 float percent = 0.5f;
 Map<String, Object> changedStates = polarrRender.autoEnhanceGlobal(percent);
 ```
+### 人物图片的全局自动增强
+返回值为全局自动增强后需要改变的调整值
+```java
+// call in gl thread
+// 增强的百分比(0,1)，0.5为最佳值
+float percent = 0.5f;
+Map<String, Object> changedStates = polarrRender.autoEnhanceGlobalForFace(percent);
+```
 ### 面部自动增强
 进行面部自动增强前需要先[进行人脸识别](##人脸识别)
 ```java

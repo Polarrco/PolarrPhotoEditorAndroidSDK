@@ -182,6 +182,7 @@ public class DemoView extends GLSurfaceView {
                 } else {
                     filter.setInputTextureId(outputTexture);
                 }
+
                 Matrix.scaleM(filter.getMatrix(), 0, 1, -1, 1);
                 filter.draw();
             }
@@ -452,7 +453,20 @@ public class DemoView extends GLSurfaceView {
                 isProcessing = true;
 
                 BenchmarkUtil.TimeStart("autoEnhanceAll");
-                Map<String, Object> changedStates = polarrRender.autoEnhanceGlobal(percent);
+                boolean hasFaces = false;
+                if (faceStates != null) {
+                    List<FaceItem> faces = (List<FaceItem>) faceStates.get("faces");
+                    if (faces != null && !faces.isEmpty()) {
+                        hasFaces = true;
+                    }
+                }
+                Map<String, Object> changedStates;
+
+                if (hasFaces) {
+                    changedStates = polarrRender.autoEnhanceGlobalForFace(percent);
+                } else {
+                    changedStates = polarrRender.autoEnhanceGlobal(percent);
+                }
                 polarrRender.autoEnhanceFace(faceStates, -1, percent, true);
 
                 // to remove lips saturation

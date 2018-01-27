@@ -149,6 +149,13 @@ return the changed adjustments
 float percent = 0.5f; // (0,1) perfact: 0.5
 Map<String, Object> changedStates = polarrRender.autoEnhanceGlobal(percent);
 ```
+### Global auto enhance if faces included
+return the changed adjustments
+```java
+// call in gl thread
+float percent = 0.5f; // (0,1) perfact: 0.5
+Map<String, Object> changedStates = polarrRender.autoEnhanceGlobalForFace(percent);
+```
 ### Face auto enhance
 Need do face detection first, [Face Detection](##Face Detection)
 ```java
