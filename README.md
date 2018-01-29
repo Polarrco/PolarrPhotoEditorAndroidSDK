@@ -603,11 +603,14 @@ FaceUtil.ResetFaceStates(faceStates);
 ### Use 3rd part face detection lib
 ```java
 // Detected points with multiple faces. Each item includes 106 points.
-List<List<PointF>> facePoints = new ArrayList<>();
+List<FaceUtil.FaceDetItem> faceDetItems = new ArrayList<>();
+FaceUtil.FaceDetItem faceItem = new FaceUtil.FaceDetItem();
+faceItem.points = detectedFacePoints;
+faceItem.rect = detectedFaceRect;
 int detectWidth = 720;
 int detectHeight = 960;
   
-Map<String, Object> faces = FaceUtil.GetFaceFeaturesWithPoints(facePoints, detectWidth, detectHeight);
+Map<String, Object> faces = FaceUtil.GetFaceFeaturesWithPoints(faceDetItems, detectWidth, detectHeight);
   
 renderStates.putAll(faces);
 ```

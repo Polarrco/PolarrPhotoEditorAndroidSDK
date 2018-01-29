@@ -640,12 +640,15 @@ FaceUtil.ResetFaceStates(faceStates);
 ### 使用第三方人脸识别库进行人脸识别
 ```java
 // 人脸数据，支持多张人脸，每张人脸数据的点个数必须为106个
-List<List<PointF>> facePoints = new ArrayList<>();
+List<FaceUtil.FaceDetItem> faceDetItems = new ArrayList<>();
+FaceUtil.FaceDetItem faceItem = new FaceUtil.FaceDetItem();
+faceItem.points = detectedFacePoints;
+faceItem.rect = detectedFaceRect;
 // 进行识别时的输入尺寸
 int detectWidth = 720;
 int detectHeight = 960;
   
-Map<String, Object> faces = FaceUtil.GetFaceFeaturesWithPoints(facePoints, detectWidth, detectHeight);
+Map<String, Object> faces = FaceUtil.GetFaceFeaturesWithPoints(faceDetItems, detectWidth, detectHeight);
   
 renderStates.putAll(faces);
 ```
