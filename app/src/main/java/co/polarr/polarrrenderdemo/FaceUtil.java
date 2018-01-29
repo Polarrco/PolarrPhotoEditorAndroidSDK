@@ -253,8 +253,8 @@ public class FaceUtil {
     private static FaceDetResult mapSenstimeToDlib(List<PointF> points, RectF faceRect) {
         FaceDetResult faceDetResult = new FaceDetResult();
         // face edge
-        for (int i = 0; i <= 32; i += 2) {
-            PointF srcPoint = points.get(i / 2);
+        for (int i = 0; i <= 16; i ++) {
+            PointF srcPoint = points.get(i * 2);
             faceDetResult.points.add(srcPoint);
         }
 
