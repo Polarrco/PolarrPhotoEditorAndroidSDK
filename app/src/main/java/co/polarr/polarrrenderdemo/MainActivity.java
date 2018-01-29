@@ -515,7 +515,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         polarrRenderThread.interrupt();
-        renderView.releaseRender();
         super.onDestroy();
     }
 
@@ -637,13 +636,46 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             final String urlString = data.getStringExtra("value");
+            sliderCon.setVisibility(View.VISIBLE);
+            labelTv.setText("custom_filter");
+
             new Thread() {
                 @Override
                 public void run() {
                     String statesString = QRCodeUtil.requestQRJson(urlString);
-                    updateQrStates(statesString);
+                    final Map<String, Object> filterStates = PolarrRender.getRenderStatesFromJson(statesString);
+
+                    renderView.updateStates(FilterPackageUtil.GetRefStates(filterStates, 0.5f));
+                    seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                            float adjustmentValue = (float) progress / 100f;
+
+                            Map<String, Object> interpolateStates = FilterPackageUtil.GetRefStates(filterStates, adjustmentValue);
+
+                            localStateMap.clear();
+                            localStateMap.putAll(faceStates);
+                            localStateMap.putAll(interpolateStates);
+
+                            renderView.updateStates(interpolateStates);
+
+                            labelTv.setText(String.format(Locale.ENGLISH, "%s: %.2f", "custom_filter", adjustmentValue));
+                        }
+
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {
+
+                        }
+
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {
+
+                        }
+                    });
                 }
             }.start();
+
+            seekbar.setProgress(50);
         }
     }
 
@@ -887,7 +919,7 @@ public class MainActivity extends AppCompatActivity {
                 localStateMap.clear();
                 localStateMap.putAll(faceStates);
 
-                renderView.updateStates(FilterPackageUtil.GetFilterStates(mCurrentFilter, 0.5f));
+                renderView.updateStates(mCurrentFilter.state);
 
                 final String label = "Filter:" + filterItem.filterName("zh");
                 labelTv.setText(label);
