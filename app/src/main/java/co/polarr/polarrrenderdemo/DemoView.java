@@ -239,22 +239,34 @@ public class DemoView extends GLSurfaceView {
         });
     }
 
-    public void setBrushTexture(final int brushTextureId) {
+    public void setBrushTexture(final Bitmap brushBitmap) {
         queueEvent(new Runnable() {
             @Override
             public void run() {
-                polarrRender.setBrushLastPaintingTex(brushTextureId);
+                int brushTex = polarrRender.getBrushLastPaint();
+                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, brushTex);
+                GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
+                GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
+                GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, brushBitmap, 0);
+                GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+
+                brushBitmap.recycle();
+                polarrRender.setBrushLastPaintingTex(brushTex);
             }
         });
     }
 
-    public int getBrushTexture() {
-        final int[] result = new int[1];
+    public Bitmap getBrushTextureBm() {
+        final Bitmap[] result = new Bitmap[1];
         queueEvent(new Runnable() {
             @Override
             public void run() {
                 synchronized (polarrRender) {
-                    result[0] = polarrRender.getBrushLastPaint();
+                    int lastPaint = polarrRender.getBrushLastPaint();
+
+                    Bitmap bitmap = Bitmap.createBitmap(outWidth, outHeight, Bitmap.Config.ARGB_8888);
+                    bitmap.copyPixelsFromBuffer(readTexture(lastPaint, outWidth, outHeight));
+                    result[0] = bitmap;
 
                     polarrRender.notifyAll();
                 }

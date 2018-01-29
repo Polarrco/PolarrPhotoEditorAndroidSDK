@@ -281,8 +281,12 @@ public class MainActivity extends AppCompatActivity {
                 renderView.brushFinish();
 
                 // no need call
-//                int lastBrushId = renderView.getBrushTexture();
-//                renderView.setBrushTexture(lastBrushId);
+                Bitmap brushBm = renderView.getBrushTextureBm();
+                Bitmap downScaledBm = Bitmap.createScaledBitmap(brushBm, brushBm.getWidth() / 2, brushBm.getHeight() / 2, false);
+                Bitmap upScaledBm = Bitmap.createScaledBitmap(downScaledBm, downScaledBm.getWidth() * 2, downScaledBm.getHeight() * 2, false);
+                brushBm.recycle();
+                downScaledBm.recycle();
+                renderView.setBrushTexture(upScaledBm);
             }
         }
     }
