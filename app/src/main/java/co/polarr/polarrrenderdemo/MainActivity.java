@@ -474,43 +474,7 @@ public class MainActivity extends AppCompatActivity {
                 showFilters();
                 break;
             case R.id.btn_eraser: {
-                AlertDialog.Builder adb = new AlertDialog.Builder(this);
-                final CharSequence items[] = {
-                        "init", "add path", "undo", "redo", "reset", "histories"
-                };
-                adb.setItems(items, new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int n) {
-                        switch (n) {
-                            case 0:
-                                renderView.initMagicEraser();
-                                break;
-                            case 1:
-                                currentPointState = POINT_MAGIC_ERASER;
-                                break;
-                            case 2:
-                                renderView.undoMagicEraser();
-                                break;
-                            case 3:
-                                renderView.redoMagicEraser();
-                                break;
-                            case 4:
-                                renderView.resetMagicEraser();
-                                break;
-                            case 5:
-                                for (MagicEraserHistoryItem historyItem : historyItems) {
-                                    renderView.renderMagicEraserHistory(historyItem);
-                                }
-                                break;
-                        }
-                        dialog.dismiss();
-                    }
-
-                });
-                adb.setNegativeButton("Cancel", null);
-                adb.setTitle("Choose a function of magic eraser:");
-                adb.show();
+                currentPointState = POINT_MAGIC_ERASER;
             }
             break;
         }
@@ -767,7 +731,7 @@ public class MainActivity extends AppCompatActivity {
         path.points.addAll(points);
         path.radius = 0.031f * inputWidth;
 
-        renderView.renderMagicEraser(path, historyItems);
+        renderView.renderMagicEraser(path);
     }
 
     private void magicEraserPath(List<PointF> points) {

@@ -432,92 +432,6 @@ int paintTexture;
 int outTexture;
 polarrRender.combine(paintTexture, outTexture);
 ```
-## 消除笔
-### 初始化消除笔
-会将inputTexture设置为消除笔原始图片，并清空全部历史记录及缓存。
-```java
-// On GL thread
-polarrRender.magicEraserInit();
-```
-### 设置最大历史记录次数
-如果不设置，默认值为10次。
-```java
-// On GL thread
-int maxSteps = 10;
-polarrRender.magicEraserSetMaxHistory(maxSteps);
-```
-### 消除一个路径内的物体
-每次消除时会根据上一次的结果进行消除处理。
-```java
-List<PointF> points; // 归一化的点坐标数组，每个PointF的x、y取值为 (0.0f, 1.0f)
-MagicEraserPath path = new MagicEraserPath();
-path.points = new ArrayList<>();
-path.points.addAll(points);
-path.radius = 20; // 点半径，单位：像素px
-  
-// On GL thread
-MagicEraserStepResult stepResult = polarrRender.magicEraserStep(path);
-```
-### 每笔操作返回结果说明
-```java
-// 返回当前笔触的历史记录，用于重做当前笔触。
-MagicEraserHistoryItem MagicEraserStepResult.historyItem; 
-  
-// 该笔是否超过了最大撤销的历史记录次数，导致内部缓存的原始texture被改变
-boolean MagicEraserStepResult.historyTexChanged; 
-  
-// 如果historyTexChange=true，内部保存的原始texture id，用于外部固化。如果historyTexChange=false，该值为0。
-// 不要修改或删除Texture。
-int MagicEraserStepResult.historyTexId; 
-```
-### 获取当前内部的原始Texture
-如果为超过历史记录次数，该接口返回和原图一样的Texture（id 不同）
-如果超过了历史记录次数，返回历史记录最初一笔的Texture
-```java
-// 不要修改或删除Texture。
-int texId = polarrRender.magicEraserGetHistoryTexture();
-```
-### 撤销
-最大撤销次数为10次。
-检查是否可以撤销
-```java
-boolean canUndo = polarrRender.magicEraserCanUndo();
-```
-超过撤销次数，该方法无效果。
-```java
-// On GL thread
-polarrRender.magicEraserUndo();
-```
-### 重做
-检查是否可以重做
-```java
-boolean canRedo = polarrRender.magicEraserCanRedo();
-```
-当重做到最新一步时，该方法无效果。
-```java
-// On GL thread
-polarrRender.magicEraserRedo();
-```
-### 还原到消除笔到初始化状态
-还原当前的图片为初始化时的状态。
-```java
-// On GL thread
-polarrRender.magicEraserReset();
-```
-### 重做历史记录
-重做历史记录只对相同的输入Texture有效。
-```java
-MagicEraserHistoryItem historyItem; // 通过polarrRender.magicEraserStep获得的历史记录。
-polarrRender.magicEraserHistory(historyItem);
-```
-### 在指定的Texture上应用一笔消除笔操作
-不需要初始化消除笔模块，直接调用后会复写传入texture的内容
-```java
-MagicEraserPath path;
-int targetTextureId;
-// On GL thread
-MagicEraserStepResult stepResult = polarrRender.magicEraserOenTime(targetTextureId, path);
-```
 ## 重置图片
 重置图片为原始状态
 ```java
@@ -546,6 +460,19 @@ polarrRender.releaseGLRes();
 ### 释放非OpenGL资源
 ```java
 polarrRender.releaseNonGLRes();
+```
+## 消除笔
+在指定的Texture上应用一笔消除笔操作
+```java
+List<PointF> points; // 归一化的点坐标数组，每个PointF的x、y取值为 (0.0f, 1.0f)
+MagicEraserPath path = new MagicEraserPath();
+path.points = new ArrayList<>();
+path.points.addAll(points);
+path.radius = 20; // 点半径，单位：像素px
+  
+int targetTextureId;
+// On GL thread
+PolarrRender.magicEraserOneTime(resources, targetTextureId, texWidth, texHeight, path);
 ```
 ## 基本全局调整属性
 

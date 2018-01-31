@@ -404,84 +404,6 @@ int paintTexture;
 int outTexture;
 polarrRender.combine(paintTexture, outTexture);
 ```
-## Magic eraser
-### Init magic eraser
-Set the original image of magic eraser by the inputTexture of PolarrRender.  
-Clear All histories and caches.
-```java
-// On GL thread
-polarrRender.magicEraserInit();
-```
-### Set max undo times
-Default is 10
-```java
-// On GL thread
-int maxSteps = 10;
-polarrRender.magicEraserSetMaxHistory(maxSteps);
-```
-### Magic erase a path
-```java
-List<PointF> points; // mask points (0.0f, 1.0f)
-MagicEraserPath path = new MagicEraserPath();
-path.points = new ArrayList<>();
-path.points.addAll(points);
-path.radius = 20; // radius of each points，pixel
-  
-// On GL thread
-MagicEraserStepResult stepResult = polarrRender.magicEraserStep(path);
-```
-### About `MagicEraserStepResult`
-```java
-// A history of the step. For re-rendering the step.
-MagicEraserHistoryItem MagicEraserStepResult.historyItem; 
-  
-// If or not this step is beyond the max undo times. If true, it would case the original texture changed.
-boolean MagicEraserStepResult.historyTexChanged; 
-  
-// if `historyTexChange=true`, it returns the original id. if `historyTexChange=false`, it returns 0.
-// this texture cannot be modified.
-int MagicEraserStepResult.historyTexId; 
-```
-### Get the original texture of histroy
-```java
-// this texture cannot be modified.
-int texId = polarrRender.magicEraserGetHistoryTexture();
-```
-### Undo
-The maximum times of undo is 10.
-```java
-boolean canUndo = polarrRender.magicEraserCanUndo();
-```
-```java
-// On GL thread
-polarrRender.magicEraserUndo();
-```
-### Redo
-```java
-boolean canRedo = polarrRender.magicEraserCanRedo();
-```
-```java
-// On GL thread
-polarrRender.magicEraserRedo();
-```
-### Redo history
-The input texture must be same as the texture of histories.
-```java
-MagicEraserHistoryItem historyItem;
-polarrRender.magicEraserHistory(historyItem);
-```
-### Reset to init
-```java
-// On GL thread
-polarrRender.magicEraserReset();
-```
-### Apply magic eraser to a texture
-```java
-MagicEraserPath path;
-int targetTextureId;
-// On GL thread
-MagicEraserStepResult stepResult = polarrRender.magicEraserOenTime(targetTextureId, path);
-```
 ## Reset all state
 Reset image to original.
 ```java
@@ -509,6 +431,19 @@ polarrRender.releaseGLRes();
 ### Relese non-openGl resources
 ```java
 polarrRender.releaseNonGLRes();
+```
+## Magic eraser
+Apply magic eraser to a texture
+```java
+List<PointF> points; // mask points (0.0f, 1.0f)
+MagicEraserPath path = new MagicEraserPath();
+path.points = new ArrayList<>();
+path.points.addAll(points);
+path.radius = 20; // radius of each points，pixel
+  
+int targetTextureId;
+// On GL thread
+PolarrRender.magicEraserOneTime(resources, targetTextureId, texWidth, texHeight, path);
 ```
 ## Basic global adjustments
 

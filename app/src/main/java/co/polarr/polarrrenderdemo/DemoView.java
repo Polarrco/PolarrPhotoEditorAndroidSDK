@@ -21,7 +21,6 @@ import javax.microedition.khronos.opengles.GL10;
 import co.polarr.renderer.PolarrRender;
 import co.polarr.renderer.entities.BrushItem;
 import co.polarr.renderer.entities.FaceItem;
-import co.polarr.renderer.entities.MagicEraserHistoryItem;
 import co.polarr.renderer.entities.MagicEraserPath;
 import co.polarr.renderer.filters.Basic;
 
@@ -57,54 +56,58 @@ public class DemoView extends GLSurfaceView {
         polarrRender = new PolarrRender();
     }
 
-    public void initMagicEraser() {
+    //    public void initMagicEraser() {
+//        queueEvent(new Runnable() {
+//            @Override
+//            public void run() {
+//                polarrRender.magicEraserInit();
+//            }
+//        });
+//    }
+//
+//    public void undoMagicEraser() {
+//        queueEvent(new Runnable() {
+//            @Override
+//            public void run() {
+//                polarrRender.magicEraserUndo();
+//
+//                requestRender();
+//            }
+//        });
+//    }
+//
+//    public void redoMagicEraser() {
+//        queueEvent(new Runnable() {
+//            @Override
+//            public void run() {
+//                polarrRender.magicEraserRedo();
+//
+//                requestRender();
+//            }
+//        });
+//    }
+//
+//    public void resetMagicEraser() {
+//        queueEvent(new Runnable() {
+//            @Override
+//            public void run() {
+//                polarrRender.magicEraserReset();
+//
+//                requestRender();
+//            }
+//        });
+//    }
+//
+    public void renderMagicEraser(final MagicEraserPath path) {
         queueEvent(new Runnable() {
             @Override
             public void run() {
-                polarrRender.magicEraserInit();
-            }
-        });
-    }
+                PolarrRender.magicEraserOneTime(getResources(),
+                        inputTexture,
+                        outWidth, outHeight,
+                        path);
 
-    public void undoMagicEraser() {
-        queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                polarrRender.magicEraserUndo();
-
-                requestRender();
-            }
-        });
-    }
-
-    public void redoMagicEraser() {
-        queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                polarrRender.magicEraserRedo();
-
-                requestRender();
-            }
-        });
-    }
-
-    public void resetMagicEraser() {
-        queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                polarrRender.magicEraserReset();
-
-                requestRender();
-            }
-        });
-    }
-
-    public void renderMagicEraser(final MagicEraserPath path, final List<MagicEraserHistoryItem> histories) {
-        queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                histories.add(polarrRender.magicEraserStep(path).historyItem);
-
+                polarrRender.updateInputTexture();
                 requestRender();
             }
         });
@@ -114,16 +117,16 @@ public class DemoView extends GLSurfaceView {
         debugPath = path;
     }
 
-    public void renderMagicEraserHistory(final MagicEraserHistoryItem historyItem) {
-        queueEvent(new Runnable() {
-            @Override
-            public void run() {
-                polarrRender.magicEraserHistory(historyItem);
-
-                requestRender();
-            }
-        });
-    }
+//    public void renderMagicEraserHistory(final MagicEraserHistoryItem historyItem) {
+//        queueEvent(new Runnable() {
+//            @Override
+//            public void run() {
+//                polarrRender.magicEraserHistory(historyItem);
+//
+//                requestRender();
+//            }
+//        });
+//    }
 
     public void setPaintMode(boolean paintMode) {
         this.inPaintMode = paintMode;
@@ -168,9 +171,10 @@ public class DemoView extends GLSurfaceView {
             GLES20.glViewport(0, 0, getWidth(), getHeight());
 //            demoCopyTexture(polarrRender.getOutputId(), outputTexture, outWidth, outHeight);
             // demo draw screen
-            if (debugPath != null && polarrRender != null) {
-                polarrRender.magicEraserPathOverLay(debugPath, outputTexture, getWidth(), getHeight());
-            } else {
+//            if (debugPath != null && polarrRender != null) {
+//                polarrRender.magicEraserPathOverLay(debugPath, outputTexture, getWidth(), getHeight());
+//            } else
+            {
                 Basic filter = Basic.getInstance(getResources());
                 if (inPaintMode) {
                     if (currentRenderTexture != 0) {
@@ -245,13 +249,13 @@ public class DemoView extends GLSurfaceView {
             public void run() {
                 int brushTex = polarrRender.getBrushLastPaint();
                 GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, brushTex);
-                GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_NEAREST);
-                GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
                 GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, brushBitmap, 0);
                 GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
 
                 brushBitmap.recycle();
                 polarrRender.setBrushLastPaintingTex(brushTex);
+
+//                requestRender();
             }
         });
     }
