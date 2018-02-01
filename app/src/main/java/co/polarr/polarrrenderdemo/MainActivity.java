@@ -551,8 +551,8 @@ public class MainActivity extends AppCompatActivity {
                 renderView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        final Bitmap imageBm = scaledBitmap(decodeBitmapFromUri(MainActivity.this, uri), renderRl.getWidth(), renderRl.getHeight());
-//                        final Bitmap imageBm = decodeBitmapFromUri(MainActivity.this, uri);
+//                        final Bitmap imageBm = scaledBitmap(decodeBitmapFromUri(MainActivity.this, uri), renderRl.getWidth(), renderRl.getHeight());
+                        final Bitmap imageBm = decodeBitmapFromUri(MainActivity.this, uri);
                         inputWidth = imageBm.getWidth();
                         inputHeight = imageBm.getHeight();
                         new Thread() {
