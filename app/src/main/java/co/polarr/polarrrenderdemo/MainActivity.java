@@ -565,7 +565,13 @@ public class MainActivity extends AppCompatActivity {
                                 FaceUtil.InitFaceUtil(MainActivity.this);
                                 Map<String, Object> faces = FaceUtil.DetectFace(scaledBitmap);
                                 FaceUtil.Release();
-                                scaledBitmap.recycle();
+                                if(scaledBitmap != imageBm) {
+                                    scaledBitmap.recycle();
+                                }
+
+                                synchronized (imageBm) {
+                                    imageBm.notify();
+                                }
 
                                 faceStates = faces;
                                 localStateMap.putAll(faceStates);
@@ -573,7 +579,13 @@ public class MainActivity extends AppCompatActivity {
                                 renderView.updateStates(localStateMap);
                             }
                         }.start();
-
+                        synchronized (imageBm) {
+                            try {
+                                imageBm.wait();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         renderView.importImage(imageBm);
                         renderView.setAlpha(1);
 
