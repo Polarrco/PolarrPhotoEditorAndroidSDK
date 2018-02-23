@@ -281,12 +281,12 @@ public class MainActivity extends AppCompatActivity {
                 renderView.brushFinish();
 
                 // no need call
-                Bitmap brushBm = renderView.getBrushTextureBm();
-                Bitmap downScaledBm = Bitmap.createScaledBitmap(brushBm, brushBm.getWidth() / 2, brushBm.getHeight() / 2, false);
-                Bitmap upScaledBm = Bitmap.createScaledBitmap(downScaledBm, downScaledBm.getWidth() * 2, downScaledBm.getHeight() * 2, false);
-                brushBm.recycle();
-                downScaledBm.recycle();
-                renderView.setBrushTexture(upScaledBm);
+//                Bitmap brushBm = renderView.getBrushTextureBm();
+//                Bitmap downScaledBm = Bitmap.createScaledBitmap(brushBm, brushBm.getWidth() / 2, brushBm.getHeight() / 2, false);
+//                Bitmap upScaledBm = Bitmap.createScaledBitmap(downScaledBm, downScaledBm.getWidth() * 2, downScaledBm.getHeight() * 2, false);
+//                brushBm.recycle();
+//                downScaledBm.recycle();
+//                renderView.setBrushTexture(upScaledBm);
             }
         }
     }
@@ -551,8 +551,8 @@ public class MainActivity extends AppCompatActivity {
                 renderView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        final Bitmap imageBm = scaledBitmap(decodeBitmapFromUri(MainActivity.this, uri), renderRl.getWidth(), renderRl.getHeight());
-                        final Bitmap imageBm = decodeBitmapFromUri(MainActivity.this, uri);
+                        final Bitmap imageBm = scaledBitmap(decodeBitmapFromUri(MainActivity.this, uri), renderRl.getWidth(), renderRl.getHeight());
+//                        final Bitmap imageBm = decodeBitmapFromUri(MainActivity.this, uri);
                         inputWidth = imageBm.getWidth();
                         inputHeight = imageBm.getHeight();
                         new Thread() {
@@ -840,7 +840,7 @@ public class MainActivity extends AppCompatActivity {
             brushItem.size = 0.40f;     // A:0.25 B:0.40 C:0.80
             brushItem.randomize = 0.8f; // A:0.80 B:0.80 C:0.80
             brushItem.spacing = 0.45f;  // A:0.85 B:0.45 C:0.45
-            brushItem.hardness = 1f;
+            brushItem.hardness = 1.5f;
         } else if (paintType.equals("mosaic")) {
             brushItem.size = 0.25f;     // A:0.14 B:0.25 C:0.5
             brushItem.spacing = 0.5f;
