@@ -102,10 +102,10 @@ public class DemoView extends GLSurfaceView {
         queueEvent(new Runnable() {
             @Override
             public void run() {
-                PolarrRender.magicEraserOneTime(getResources(),
+                PolarrRender.magicEraserOneTimeCompatible(getResources(),
                         inputTexture,
                         outWidth, outHeight,
-                        path);
+                        path, 0); // compatibleLevel=1 for lower cpu
 
                 polarrRender.updateInputTexture();
                 requestRender();

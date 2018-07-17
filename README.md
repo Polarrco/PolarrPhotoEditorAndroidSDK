@@ -445,6 +445,12 @@ int targetTextureId;
 // On GL thread
 PolarrRender.magicEraserOneTime(resources, targetTextureId, texWidth, texHeight, path);
 ```
+### Magic eraser (Compatible mode)
+```java
+int compatibleLevel = 0; // Range[0,3], default: 0. Bigger number for lower CPU.
+// On GL thread
+PolarrRender.magicEraserOneTimeCompatible(resources, targetTextureId, texWidth, texHeight, path, compatibleLevel);
+```
 ## Basic global adjustments
 
 | Properties | Range |

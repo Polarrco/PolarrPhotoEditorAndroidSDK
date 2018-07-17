@@ -474,6 +474,12 @@ int targetTextureId;
 // On GL thread
 PolarrRender.magicEraserOneTime(resources, targetTextureId, texWidth, texHeight, path);
 ```
+### 消除笔（兼容模式）
+```java
+int compatibleLevel = 0; // 兼容级别，取值范围[0,3]，0为默认值。数值越高越兼容低性能CPU。例如：SDM 450，参考值为:1
+// On GL thread
+PolarrRender.magicEraserOneTimeCompatible(resources, targetTextureId, texWidth, texHeight, path, compatibleLevel);
+```
 ## 基本全局调整属性
 
 | 属性 | 取值范围 | 描述 |
