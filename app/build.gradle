@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "co.polarr.polarrrenderdemo"
         minSdkVersion 15
@@ -35,22 +34,18 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:support-vector-drawable:25.3.1'
-    testCompile 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.android.support:design:25.3.1'
+    implementation 'com.android.support:support-vector-drawable:25.3.1'
 
     // render engine
-    compile (name: 'renderer-editor-release', ext: 'aar')
+    implementation (name: 'renderer-editor-release', ext: 'aar')
     // face detection
-    compile(name: 'dlib-release', ext: 'aar')
+    implementation(name: 'dlib-release', ext: 'aar')
     // qr code
-    compile(name: 'qrcode-release', ext: 'aar')
+    implementation(name: 'qrcode-release', ext: 'aar')
 
     // qr code
-    compile 'com.google.zxing:core:3.2.1'
+    implementation 'com.google.zxing:core:3.2.1'
 }
