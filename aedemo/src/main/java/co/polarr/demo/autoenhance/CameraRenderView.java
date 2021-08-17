@@ -166,7 +166,7 @@ public class CameraRenderView extends GLSurfaceView implements GLSurfaceView.Ren
         //get the camera orientation and display dimension------------
         if (mContext.getResources().getConfiguration().orientation ==
                 Configuration.ORIENTATION_PORTRAIT) {
-            Matrix.setRotateM(mOrientationM, 0, 90.0f, 0f, 0f, 1f);
+            Matrix.setRotateM(mOrientationM, 0, -90.0f, 0f, 0f, 1f);
         } else {
             Matrix.setRotateM(mOrientationM, 0, 0.0f, 0f, 0f, 1f);
         }

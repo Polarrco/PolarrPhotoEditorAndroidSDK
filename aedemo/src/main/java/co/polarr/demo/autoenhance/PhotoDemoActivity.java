@@ -1,6 +1,5 @@
 package co.polarr.demo.autoenhance;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,13 +16,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.InputStream;
 import java.util.Locale;
 
 import co.polarr.demo.autoenhance.utils.EGLHelper;
 import co.polarr.renderer.PolarrRender;
 
-public class PhotoDemoActivity extends Activity {
+public class PhotoDemoActivity extends AppCompatActivity {
     private static final int DESIGN_WIDTH = 1080;
     private static final int DESIGN_HEIGHT = 1920;
     private static final int REQUEST_IMPORT_PHOTO = 1;

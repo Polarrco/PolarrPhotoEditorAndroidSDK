@@ -6,7 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.support.annotation.RawRes;
+
+import androidx.annotation.RawRes;
 
 import com.tzutalin.dlib.FaceDet;
 import com.tzutalin.dlib.VisionDetRet;

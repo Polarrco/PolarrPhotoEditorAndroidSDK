@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 30
     defaultConfig {
         applicationId "co.polarr.polarrrenderdemo"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 17
-        versionName "0.17"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion 19
+        targetSdkVersion 30
+        versionCode 18
+        versionName "0.18"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     signingConfigs {
         release {
@@ -35,9 +35,9 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:25.3.1'
-    implementation 'com.android.support:design:25.3.1'
-    implementation 'com.android.support:support-vector-drawable:25.3.1'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
 
     // render engine
     implementation (name: 'renderer-editor-release', ext: 'aar')
@@ -47,5 +47,5 @@ dependencies {
     implementation(name: 'qrcode-release', ext: 'aar')
 
     // qr code
-    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'com.google.zxing:core:3.4.0'
 }

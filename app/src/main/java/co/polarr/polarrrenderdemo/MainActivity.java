@@ -11,11 +11,12 @@ import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatSeekBar;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSeekBar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -545,6 +546,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (REQUEST_IMPORT_PHOTO == requestCode) {
             if (data != null) {
                 final Uri uri = data.getData();
@@ -565,7 +567,7 @@ public class MainActivity extends AppCompatActivity {
                                 FaceUtil.InitFaceUtil(MainActivity.this);
                                 Map<String, Object> faces = FaceUtil.DetectFace(scaledBitmap);
                                 FaceUtil.Release();
-                                if(scaledBitmap != imageBm) {
+                                if (scaledBitmap != imageBm) {
                                     scaledBitmap.recycle();
                                 }
 
