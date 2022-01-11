@@ -98,7 +98,9 @@ public class CameraActivity extends AppCompatActivity {
     }
 
     private void takePhoto() {
-        final File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM), "polarr_demo");
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        final File folder = new File(storageDir, "polarr_demo");
+
         if (!folder.exists()) {
             folder.mkdir();
         }
