@@ -1,5 +1,7 @@
 # Polarr Photo Editor Android SDK
 
+*As of January 2025, the public repo of Polarr Photo Editor Android SDK is no longer maintained. If you are interested in commercial licensing of the SDK, please reach out to [info@polarr.co](mailto:info@polarr.co)*.
+
 The Polarr Photo Editor Android SDK is an extremely portable (<200kb) library that exposes a subset of the native OpenGL rendering APIs used by [Polarr Photo Editor](https://play.google.com/store/apps/details?id=photo.editor.polarr). 
 
 This SDK includes a starter project (co.polarr.polarrrenderdemo) that calls the Android SDK and users can try out the available editing tools. This repo is intended to demonstrate a subset of the capabilities of the full Android SDK.
